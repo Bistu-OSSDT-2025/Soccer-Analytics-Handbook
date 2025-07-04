@@ -1,0 +1,102 @@
+安装与配置指南
+1. 环境要求
+操作系统：支持 macOS / Windows / Linux
+
+Python：3.8 或更高版本
+
+数据库：MySQL 5.7 或更高版本
+
+前端依赖：Node.js（可选，用于前端开发）
+
+2. 安装步骤
+2.1 克隆项目
+bash
+git clone https://github.com/your-repository/premier-league-prediction-system.git
+cd premier-league-prediction-system
+2.2 安装 Python 依赖
+bash
+pip install -r requirements.txt
+requirements.txt 包含的主要依赖：
+
+Flask
+
+pandas
+
+scikit-learn
+
+tensorflow
+
+requests
+
+BeautifulSoup4
+
+mysql-connector-python
+
+2.3 数据库配置
+创建 MySQL 数据库：
+
+sql
+CREATE DATABASE premier_league;
+导入数据表结构（如有 SQL 脚本）：
+
+bash
+mysql -u [username] -p premier_league < database/schema.sql
+2.4 后端服务启动
+bash
+python backend/app.py
+默认运行在 http://127.0.0.1:5000。
+
+2.5 前端运行（可选）
+如果需修改前端代码：
+
+安装 Node.js 依赖：
+
+bash
+cd frontend
+npm install
+启动开发服务器：
+
+bash
+npm run dev
+静态页面可直接用浏览器打开 index.html。
+
+3. 配置文件
+修改 backend/config.py 中的数据库连接信息：
+
+python
+DB_CONFIG = {
+    'host': 'localhost',
+    'user': 'your_username',
+    'password': 'your_password',
+    'database': 'premier_league'
+}
+4. 数据初始化
+运行数据爬取脚本（需配置爬虫目标网站权限）：
+
+bash
+python data_crawler.py
+注意：部分网站可能有反爬机制，需自行处理或使用模拟数据。
+
+5. 模型训练
+首次运行需训练预测模型：
+
+bash
+python model/train.py
+生成的模型文件（.pkl）会自动保存在 model/ 目录。
+
+6. 访问系统
+前端入口：浏览器打开 frontend/index.html
+
+API 文档：访问 http://127.0.0.1:5000/docs（需 Swagger 配置）
+
+7. Docker 部署（可选）
+bash
+docker build -t pl-prediction .
+docker run -p 5000:5000 pl-prediction
+8. 常见问题
+数据库连接失败：检查 config.py 中的账号密码及 MySQL 服务状态。
+
+缺少依赖库：使用 pip install -r requirements.txt 补全。
+
+爬虫报错：更换请求头或使用代理 IP。
+
